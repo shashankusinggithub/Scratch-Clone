@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef , useEffect} from "react";
 import CatSprite from "./CatSprite";
 import { motion, useDragControls, useAnimation, animate } from "framer-motion"
 
@@ -29,29 +29,56 @@ export default function PreviewArea(props) {
 
 
 
-  const forloop = async () =>{
+
+  const forloop = async () => {
     let Xp = X
     let Yp = Y
     let Rp = R
-    for (const item of props.flow){
+    for (const item of props.flow) {
       await new Promise(resolve => setTimeout(resolve))
-      
+      if (item.action) {
+        // console.log("started")
+        Yp = Yp + item.action.y
+        Rp = Rp + item.action.rotate
+        Xp = Xp + item.action.x
+        const temp = { x: Xp, y: Yp, rotate: Rp }
+        console.log(temp)
+        await animation.start(temp)
+        setX(Xp)
+        setY(Yp)
+        setR(Rp)
+      }
+      else if (item.array) {
+        Xp, Yp, Rp =  await insideforloop(item.array, Xp, Yp, Rp)
+        setX(Xp)
+        setY(Yp)
+        setR(Rp)
+      }
+    }
 
-      Yp = Yp + item.action.y
-      Rp = Rp + item.action.rotate
-      Xp = Xp + item.action.x
-      const temp = { x: Xp, y: Yp, rotate: Rp}
-      console.log(temp)
-      setX(Xp)
-      setY(Yp)
-      setR(Rp)
-      await animation.start(temp)
   }
-      
+
+  const insideforloop = async (insidefor,  Xp, Yp, Rp) => {
+    
+    for (const item of insidefor ){
+      await new Promise(resolve => setTimeout(resolve))
+      if (item.action) {
+        console.log("started for")
+        Yp = Yp + item.action.y
+        Rp = Rp + item.action.rotate
+        Xp = Xp + item.action.x
+        const temp = { x: Xp, y: Yp, rotate: Rp }
+        console.log(temp)
+        await animation.start(temp)
+        setX(Xp)
+        setY(Yp)
+        setR(Rp)
+      }
     }
     
-    
-    
+    return (Xp, Yp, Rp)
+  }
+
 
 
 
@@ -69,10 +96,8 @@ export default function PreviewArea(props) {
       Yp = Y + item.action.y
       Rp = R + item.action.rotate
       Xp = X + item.action.x
-      const temp = { x: Xp, y: Yp, rotate: Rp, delay: 1}
+      const temp = { x: Xp, y: Yp, rotate: Rp, delay: 1 }
       await forloop(temp)
-      
-
 
     })
   }
@@ -155,9 +180,9 @@ export default function PreviewArea(props) {
         drag
         onTap={forloop}
         onDragEnd={updatePosition}
-
         animate={animation}
-        transition={{ duration:0.5,  delay: 0 }}
+        transition={{ duration: 0.5, delay: 0 }}
+        onAnimationIteration={updatePosition}
 
         src="https://image.pngaaa.com/370/3253370-middle.png"></motion.img>
 
