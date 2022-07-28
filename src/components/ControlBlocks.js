@@ -2,7 +2,8 @@ import React from 'react'
 import { useDrag } from "react-dnd";
 
 
-function Block(props) {
+function ControlBlock(props) {
+
     const [{isDragging}, drag] = useDrag(()=>({
         type: `${props.type}`,
         item: {props: props},
@@ -12,7 +13,7 @@ function Block(props) {
       }))
     let dragable
     
-    if (props.type){
+    if (props.type === "insert"){
       dragable = drag }else{
        dragable = {}
       }

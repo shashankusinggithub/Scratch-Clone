@@ -21,7 +21,7 @@ export default function MidArea(props) {
   },[board])
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: "insert",
+    accept: ["insert", "insertinto"],
     drop: (item) => addImageToBoard(item.props.item),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -49,7 +49,8 @@ export default function MidArea(props) {
     <Reorder.Group axis="y" values={board} onReorder={setBoard}>
       {board.map((item) => (
         <Reorder.Item key={item.key} value={item}>
-          <Blockcopy item={item} id={item.key} class={item.class} operation={item.operation} type="replace" />
+          <Blockcopy item={item} id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
+          type={props.type === "insertinto"? "insertinto" :"replace"} />
         </Reorder.Item>
       ))}
     </Reorder.Group>

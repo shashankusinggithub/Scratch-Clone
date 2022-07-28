@@ -61,7 +61,17 @@ export default function Sidebar() {
       operation: "Turn -> 15 degrees",
       action: {x: 0, y:0, rotate:15}
 
-    }
+    },
+  ]
+  const controlList =[
+    {
+      id: "for",
+      class: "flex flex-row flex-wrap bg-red-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
+      operation: "For Loop",
+
+      
+
+    },
 
   ]
 
@@ -77,7 +87,14 @@ export default function Sidebar() {
       {motionList.map((item)=> {
         return <Block item={item} id={item.id} class={item.class} operation={item.operation} type={"insert"}/>
       })}
+      <div className="font-bold"> {"Control"} </div>
+      {controlList.map((item)=> {
+        return <Block item={item} id={item.id} class={item.class} operation={item.operation} type={"insertinto"}/>
+      })}
 
     </div>
+    
   );
 }
+
+
