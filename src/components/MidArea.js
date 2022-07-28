@@ -24,11 +24,21 @@ export default function MidArea(props) {
 
   },[board])
 
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: ["insert", "insertinto", "replaceinto"],
-    drop: (item) => addImageToBoard(item.props),
+
+  const [{ isOver, isOverCurrent }, drop] = useDrop(() => ({
+
+    accept: ["insert","replace", "insertinto", "replaceinto"],
+    drop: (item, monitor) => {
+      const didDrop = monitor.didDrop()
+        if (didDrop ) {
+          return}
+      addImageToBoard(item.props)
+
+    
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
+      isOverCurrent: monitor.isOver({ shallow: true })
     })
   }))
 
@@ -50,13 +60,13 @@ export default function MidArea(props) {
   }
 
   return <div
-    ref={drop} className="w-60 flex-none h-full ">
+    ref={drop} className="w-full flex-none h-full overflow-y-auto flex flex-col items-start p-2 border-r border-gray-200">
     {"mid area"}
 
     <Reorder.Group axis="y" values={board} onReorder={setBoard}>
       {board.map((item) => (
         <Reorder.Item key={item.key} value={item}  >
-          {item.type === "insertinto" && <ControlBlocks id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
+          {item.type === "insertinto" && <ControlBlocks id={item.key} class={`w-60 h-30 max-h-auto  ${item.class}`} operation={item.operation} setFlow={props.setFlow}
           type={"replace"} flow={props.flow} setBoard={setBoard}/>}
           {item.type === "insert" && <Blockcopy  id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
           type={"replace"} flow={props.flow}>{item.type}</Blockcopy>}

@@ -1,4 +1,4 @@
-import React, { useState, useRef , useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CatSprite from "./CatSprite";
 import { motion, useDragControls, useAnimation, animate } from "framer-motion"
 
@@ -34,14 +34,17 @@ export default function PreviewArea(props) {
     let Xp = X
     let Yp = Y
     let Rp = R
+    let temp = { x: Xp, y: Yp, rotate: Rp }
+    let temp1
     for (const item of props.flow) {
       await new Promise(resolve => setTimeout(resolve))
+      console.log(item)
       if (item.action) {
         // console.log("started")
         Yp = Yp + item.action.y
         Rp = Rp + item.action.rotate
         Xp = Xp + item.action.x
-        const temp = { x: Xp, y: Yp, rotate: Rp }
+        temp = { x: Xp, y: Yp, rotate: Rp }
         console.log(temp)
         await animation.start(temp)
         setX(Xp)
@@ -49,7 +52,10 @@ export default function PreviewArea(props) {
         setR(Rp)
       }
       else if (item.array) {
-        Xp, Yp, Rp =  await insideforloop(item.array, Xp, Yp, Rp)
+        temp1 = await insideforloop(item.array, Xp, Yp, Rp)
+        Xp = temp1.x
+        Yp = temp1.y
+        Rp = temp1.rotate
         setX(Xp)
         setY(Yp)
         setR(Rp)
@@ -58,25 +64,25 @@ export default function PreviewArea(props) {
 
   }
 
-  const insideforloop = async (insidefor,  Xp, Yp, Rp) => {
-    
-    for (const item of insidefor ){
+  const insideforloop = async (insidefor, Xp, Yp, Rp) => {
+    let temp
+    for (const item of insidefor) {
       await new Promise(resolve => setTimeout(resolve))
       if (item.action) {
         console.log("started for")
         Yp = Yp + item.action.y
         Rp = Rp + item.action.rotate
         Xp = Xp + item.action.x
-        const temp = { x: Xp, y: Yp, rotate: Rp }
+        temp = { x: Xp, y: Yp, rotate: Rp }
         console.log(temp)
         await animation.start(temp)
-        setX(Xp)
-        setY(Yp)
-        setR(Rp)
       }
     }
-    
-    return (Xp, Yp, Rp)
+    setX(Xp)
+    setY(Yp)
+    setR(Rp)
+
+    return (temp)
   }
 
 

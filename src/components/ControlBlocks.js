@@ -25,7 +25,7 @@ function ControlBlock(props) {
 
       prv[index].array = inner
 
-      return (prv)
+      return ([...prv])
     })
     // setInnerBlock(inner)
     // console.log(innerBlocks, innerBlock)
@@ -53,7 +53,7 @@ function ControlBlock(props) {
 
     }
     setInnerBlock((prv) => {   
-      
+      console.log(temp)
       return ([...prv, { ...temp, key: (props.flow.length +1)*100 + prv.length +1}])
     })
     // const index = props.flow.findIndex(object => {
