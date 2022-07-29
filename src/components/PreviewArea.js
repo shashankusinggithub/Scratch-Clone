@@ -11,6 +11,7 @@ export default function PreviewArea(props) {
   const [X, setX] = useState(0)
   const [Y, setY] = useState(0)
   const [R, setR] = useState(0)
+  const [urlSprite, setUrl] = useState("https://www.seekpng.com/png/full/19-191322_scratch-cat-the-game-pose-as-you-know.png")
 
   let flag = false
   let cancel = false
@@ -94,7 +95,7 @@ export default function PreviewArea(props) {
             for (let i = 1; i <= item.repeat; i++) {
               temp1 = await insideforloop(item.array, Xp, Yp, Rp)
               console.log(temp1)
-              
+
               Xp = temp1.x
               Yp = temp1.y
               Rp = temp1.rotate
@@ -210,43 +211,55 @@ export default function PreviewArea(props) {
   // }
 
 
+  function handleChange(event) {
+    const value = event.target.value
+    console.log(value)
+    setUrl(value)
+
+  }
+
+
   return (
 
     <div
       id='parent-id'
-      className="flex-none h-full overflow-x-auto  overflow-y-auto p-2 w-full"
+      className="flex-none h-full w-full float-leftS overflow-x-auto  overflow-y-auto p-2 "
     >
-      <div className="flex flex-row space-x-4 ">
+      <div className="items-end  space-x-10 float-left flex flex-row  absolute">
 
         <img
-          className="w-10 bg-pink-500"
-          src="https://icon-library.com/images/green-flag-icon/green-flag-icon-25.jpg"
+          className="w-16  "
+          src="https://w7.pngwing.com/pngs/186/520/png-transparent-computer-icons-flag-icon-design-various-actions-miscellaneous-angle-flag-thumbnail.png"
           onClick={handleStartFlag}
         />
 
-        <img className="h-10"
-          onClick={()=>animation.stop()}
+        <img className="h-16"
+          onClick={() => animation.stop()}
           src="https://www.clipartmax.com/png/full/218-2181389_stop-it-simple-multicolor-icon-stop-traffic-sign.png" />
+        <input onChange={handleChange} type="text" placeholder="Submit your IMG url" className='text-blue-900 border-4 border-indigo-500/100 text-lg space-x-20 w-90 h-10 mx-6 p-2 rounded-lg'></input>
       </div>
       <br></br>
 
       <motion.img
+        
+        layout
         id='child-id'
         ref={ref}
         // initial={false}
-        className="h-20 absolute"
+        className="h-28 m-14"
         //  onClick={() => setIsActive(!isActive)}
         dragMomentum={false}
         drag
         onTap={forloop}
         onDragEnd={updatePosition}
         animate={animation}
-        
-        transition={{  duration:0.5, delay: 0.5 }}
+
+        transition={{ duration: 0.5, delay: 0.1 }}
         onAnimationIteration={updatePosition}
         onClick={handleStartSprite}
 
-        src="https://image.pngaaa.com/370/3253370-middle.png"></motion.img>
+        src={urlSprite}></motion.img>
+
 
 
     </div>

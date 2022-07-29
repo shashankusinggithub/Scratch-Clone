@@ -17,7 +17,7 @@ function Block(props) {
        dragable = {}
       }
   return (
-    <div ref={dragable} className={props.class}>{props.operation}</div>
+    <div ref={dragable} className={`${props.class} h-16 rounded-lg border-2 -space-y-2 items-center `}>{props.operation}</div>
   )
 }
 

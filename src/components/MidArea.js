@@ -110,15 +110,15 @@ export default function MidArea(props) {
   }
 
   return <div
-    ref={drop} className="w-full flex-none h-full overflow-y-auto  flex flex-col items-start p-2 border-r border-gray-200">
-    {"mid area"}
+    ref={drop} className="w-3/6 flex-none h-full  overflow-y-auto flex flex-col items-start p-2 border-r border-gray-200 text-600 text-2xl font-bold p-10">
+    {"Drop your Code"}
 
-    <Reorder.Group axis={"y" || "x"} values={board} id="midarea" onReorder={setBoard}>
+    <Reorder.Group axis={"y" || "x"} values={board} id="midarea" className="mx-4 text-lg flex-row  py-4 -space-y-2" onReorder={setBoard}>
       {board.map((item) => (
         <Reorder.Item drag key={item.key} value={item}  >
-          {item.type === "insertinto" && <ControlBlocks id={item.key} draggable class={`w-60 h-30 max-h-30  ${item.class}`} operation={item.operation} setFlow={props.setFlow}
+          {item.type === "insertinto" && <ControlBlocks id={item.key} draggable class={`text-lg items-start p-4 ${item.class}`} operation={item.operation} setFlow={props.setFlow}
             type={"replace"} flow={props.flow} board={board} setBoard={setBoard} />}
-          {item.type === "insert" && <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow} action={item.action}
+          {item.type === "insert" && <Blockcopy id={item.key} class={`text-lg items-center p-2 ${item.class}`} operation={item.operation} setFlow={props.setFlow} action={item.action}
             type={"replace"} setBoard={setBoard}>{item.type}</Blockcopy>}
         </Reorder.Item>
       ))}

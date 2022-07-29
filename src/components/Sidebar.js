@@ -66,7 +66,7 @@ export default function Sidebar() {
   const controlList =[
     {
       id: "for",
-      class: "flex  flex-row flex-wrap bg-red-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
+      class: "flex  flex-row flex-wrap bg-red-500 text-white px-2 py-3 my-2 text-sm cursor-pointer",
       operation: "For Loop reps  ",
       array : [],
       repeat : 5     
@@ -76,7 +76,7 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="w-60 flex-none h-full overflow-y-auto flex flex-col items-start p-2 border-r border-gray-200">
+    <div className="w-70 flex-none h-full  overflow-y-auto flex flex-col items-center p-2 border-r border-gray-200 text-600 text-2xl font-bold p-10">
       <div className="font-bold"> {"Events"} </div>
       {eventsList.map((item)=> {
         return <Block id={item.id} item={item} class={item.class} operation={item.operation} type={"insert"}/>

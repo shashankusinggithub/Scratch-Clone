@@ -93,7 +93,7 @@ function Blockcopy(props) {
     <motion.div id="block"
 
       //  onFocus={()=> console.log("captured", props.id)}
-      className={props.class}
+      className={`${props.class} h-16 rounded-lg border-2`}
       onClick={(event) => {
         setKeyVal(props.id)
         console.log(keyVal)
@@ -102,7 +102,7 @@ function Blockcopy(props) {
 
 
       type={"replace"}>{props.operation}
-      {props.action && <input onChange={handleChange}  type="text" defaultValue={100}  className='text-blue-600 w-10'></input>}
+      {props.action && <input onChange={handleChange} className="text-blue-900 text-lg w-16 h-4 mx-6 p-4 rounded-lg" type="text" defaultValue={100}  ></input>}
     </motion.div>
 
 

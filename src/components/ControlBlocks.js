@@ -120,7 +120,7 @@ function ControlBlock(props) {
     }
 
     return (
-      <div ref={dropE} className={props.class}
+      <div ref={dropE} className={`${props.class} items-end rounded-lg border-2`}
         
         onClick={() => {
           {
@@ -130,11 +130,11 @@ function ControlBlock(props) {
         }
         }
       >{props.operation} {props.id}
-        <input onChange={handleChange} defaultValue={5} type="text"  className='text-blue-600 w-10'></input>
+        <input onChange={handleChange} defaultValue={5} type="text"  className='text-blue-900 justify-items-end text-lg w-16 h-5 mx-6 p-4 rounded-lg'></input>
         <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} >
           {innerBlock.map((item) => (
-            <Reorder.Item key={item.key} value={item} drag >
-              <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
+            <Reorder.Item key={item.key} value={item} drag className="mx-4  flex-row  content-center">
+              <Blockcopy id={item.key} class={`text-m items-center  ${item.class}`} operation={item.operation} setFlow={props.setFlow}
                 type={"replaceinto"} action={item.action}  setInnerBlock={setInnerBlock} />
             </Reorder.Item>
           ))}
