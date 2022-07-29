@@ -32,7 +32,7 @@ export default function MidArea(props) {
               return object.key === prekey;
             });
 
-            console.log("Enter key was pressed. Run your function.", keyVal, prekey, ind);
+            // console.log("Enter key was pressed. Run your function.", keyVal, prekey, ind);
             newArr = prv[ind].array.filter(object => {
               return object.key !== keyVal})  
             prv[ind].array = newArr          
@@ -56,7 +56,7 @@ export default function MidArea(props) {
 
     for (let i = 0; i < board.length; i++) {
 
-      flowAdding.push({ onTap: board[i].onTap, action: board[i].action, array: board[i].array })
+      flowAdding.push({ onTap: board[i].onTap, action: board[i].action, array: board[i].array , repeat: board[i].repeat })
     }
     props.setFlow(flowAdding)
     // console.log(flowAdding, props.flow)
@@ -88,10 +88,7 @@ export default function MidArea(props) {
   
 
   const addImageToBoard = (ite) => {
-    
-      
-
-    console.log(ite)
+    // console.log(ite)
     const temp = {
       id: ite.id,
       class: ite.class,
@@ -99,7 +96,8 @@ export default function MidArea(props) {
       action: ite.item.action,
       onTap: ite.onTap,
       type: ite.type,
-      array: ite.item.array
+      array: ite.item.array,
+      repeat: ite.item.repeat
     }
     count+=1
     setBoard((prv) => {

@@ -45,20 +45,21 @@ export default function PreviewArea(props) {
         Rp = Rp + item.action.rotate
         Xp = Xp + item.action.x
         temp = { x: Xp, y: Yp, rotate: Rp }
-        console.log(temp)
+        // console.log(temp)
         await animation.start(temp)
         setX(Xp)
         setY(Yp)
         setR(Rp)
       }
       else if (item.array) {
+        for (let i = 1; i <= item.repeat; i++){
         temp1 = await insideforloop(item.array, Xp, Yp, Rp)
         Xp = temp1.x
         Yp = temp1.y
         Rp = temp1.rotate
         setX(Xp)
         setY(Yp)
-        setR(Rp)
+        setR(Rp)}
       }
     }
 
@@ -69,12 +70,12 @@ export default function PreviewArea(props) {
     for (const item of insidefor) {
       await new Promise(resolve => setTimeout(resolve))
       if (item.action) {
-        console.log("started for")
+        // console.log("started for")
         Yp = Yp + item.action.y
         Rp = Rp + item.action.rotate
         Xp = Xp + item.action.x
         temp = { x: Xp, y: Yp, rotate: Rp }
-        console.log(temp)
+        // console.log(temp)
         await animation.start(temp)
       }
     }

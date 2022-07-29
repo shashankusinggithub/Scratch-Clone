@@ -21,7 +21,7 @@ function Blockcopy(props) {
           return object.key === props.id;
         });
 
-        console.log(prv[index])
+        // console.log(prv[index])
 
 
         {
@@ -44,7 +44,7 @@ function Blockcopy(props) {
             prv[index].action.rotate = value
           }
 
-          console.log(prv[index].action)
+          // console.log(prv[index].action)
           return ([...prv])
         }
       })
@@ -56,7 +56,7 @@ function Blockcopy(props) {
           return object.key === props.id;
         });
 
-        console.log(prv[index])
+        // console.log(prv[index])
 
 
         {
@@ -79,7 +79,7 @@ function Blockcopy(props) {
             prv[index].action.rotate = value
           }
 
-          console.log(prv[index].action)
+          // console.log(prv[index].action)
           return ([...prv])
         }
       })

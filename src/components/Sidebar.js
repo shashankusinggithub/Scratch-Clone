@@ -28,37 +28,37 @@ export default function Sidebar() {
   const motionList = [{
     id: "move fw",
     class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
-    operation: "Move 10 steps forward",
+    operation: "Move Forward Steps    |",
     action: {x: 50, y:0, rotate:0}
   },
   {
     id: "move bw",
     class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
-    operation: "Move 10 steps backward",
+    operation: "Move Backward Steps    |",
     action: {x: -50, y:0, rotate:0}
   },
   {
     id: "move up",
     class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
-    operation: "Move 10 steps upside",
+    operation: "Move Upside Steps    |",
     action: {x:0, y:-50, rotate:0}
   },
   {
     id: "move dwn",
     class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
-    operation: "Move 10 steps dowside",
+    operation: "Move Downside Steps    |",
     action: {x: 0, y:50, rotate:0}
   },
   {
     id: "rotateAntiClock",
     class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
-    operation: "Turn <- 15 degrees",
+    operation: "Rotate Anti-Clockwise Deg   |",
     action: {x: 0, y:0, rotate:-15}
   },
     {
       id: "rotateClockWise",
       class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
-      operation: "Turn -> 15 degrees",
+      operation: "Rotate Clockwise Deg    |",
       action: {x: 0, y:0, rotate:15}
 
     },
@@ -67,9 +67,9 @@ export default function Sidebar() {
     {
       id: "for",
       class: "flex  flex-row flex-wrap bg-red-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
-      operation: "For Loop",
+      operation: "For Loop reps  ",
       array : [],
-      repete : 5     
+      repeat : 5     
 
     },
 

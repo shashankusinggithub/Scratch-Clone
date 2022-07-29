@@ -24,7 +24,7 @@ function ControlBlock(props) {
       const index = prv.findIndex(object => {
         return object.key === props.id;
       });
-      console.log("innerbox, board", index, prv)
+      // console.log("innerbox, board", index, prv)
 
       prv[index].array = inner
 
@@ -44,7 +44,7 @@ function ControlBlock(props) {
   }))
 
   const addImageToBoard = (ite) => {
-    console.log(ite)
+    // console.log(ite)
     const temp = {
       id: ite.id,
       class: ite.class,
@@ -59,7 +59,7 @@ function ControlBlock(props) {
 
 
     setInnerBlock((prv) => {
-      console.log(temp)
+      // console.log(temp)
       return ([...prv, { ...temp, key: (props.id) * 1000 + count }])
     })
 
@@ -82,47 +82,67 @@ function ControlBlock(props) {
     const listener = event => {
       if (event.code === "Delete") {
         if (keyVal > 1000) {
-          
-          setInnerBlock((prv)=>{
+
+          setInnerBlock((prv) => {
             let newArr = prv.filter(object => {
               return object.key !== keyVal
             })
             return ([...newArr])
           })
-      }}
+        }
+      }
     };
-document.addEventListener("keydown", listener);
-return () => {
-  document.removeEventListener("keydown", listener);
-};
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+
+    };
   }, [keyVal]);
 
+  function handleChange(event) {
+    const value = Number(event.target.value.replace(/\D/g, ''))
+    console.log(value)
+    
+      props.setBoard((prv) => {
+        const index = prv.findIndex(object => {
+          return object.key === props.id;})
 
 
-return (
-  <div ref={dropE} className={props.class}
+          prv[index].repeat = value
+          console.log(prv[index], props.id, index)
 
-    onClick={() => {
-      {
-        setKeyVal(props.id)
-      }
-      console.log(keyVal)
+          // console.log(prv[index].action)
+          return ([...prv])
+
+
+        });
+      
     }
-    }
-  >{props.operation} {props.id}
-    <input type="text" className='text-blue-600 w-10'></input>
-    <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} >
-      {innerBlock.map((item) => (
-        <Reorder.Item key={item.key} value={item} drag >
-          <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
-            type={"replaceinto"} setInnerBlock={setInnerBlock}/>
-        </Reorder.Item>
-      ))}
-    </Reorder.Group>
-  </div>
-)
-}
+
+    return (
+      <div ref={dropE} className={props.class}
+        
+        onClick={() => {
+          {
+            setKeyVal(props.id)
+          }
+          // console.log(keyVal)
+        }
+        }
+      >{props.operation} {props.id}
+        <input onChange={handleChange}  type="text" className='text-blue-600 w-10'></input>
+        <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} >
+          {innerBlock.map((item) => (
+            <Reorder.Item key={item.key} value={item} drag >
+              <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
+                type={"replaceinto"} setInnerBlock={setInnerBlock} />
+            </Reorder.Item>
+          ))}
+        </Reorder.Group>
+      </div>
+    )
+  }
 
 
 
-export default ControlBlock
+  export default ControlBlock
