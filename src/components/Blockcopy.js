@@ -86,7 +86,7 @@ function Blockcopy(props) {
     }
   }
 
-
+// console.log(props.action, "action")
 
   return (
 
@@ -102,7 +102,7 @@ function Blockcopy(props) {
 
 
       type={"replace"}>{props.operation}
-      <input onChange={handleChange} type="text" className='text-blue-600 w-10'></input>
+      {props.action && <input onChange={handleChange}  type="text" className='text-blue-600 w-10'></input>}
     </motion.div>
 
 

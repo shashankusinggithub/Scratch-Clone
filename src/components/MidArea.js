@@ -55,6 +55,7 @@ export default function MidArea(props) {
     let flowAdding = []
 
     for (let i = 0; i < board.length; i++) {
+      console.log(board[i])
 
       flowAdding.push({ onTap: board[i].onTap, action: board[i].action, array: board[i].array , repeat: board[i].repeat })
     }
@@ -94,7 +95,7 @@ export default function MidArea(props) {
       class: ite.class,
       operation: ite.operation,
       action: ite.item.action,
-      onTap: ite.onTap,
+      onTap: ite.item.onTap,
       type: ite.type,
       array: ite.item.array,
       repeat: ite.item.repeat
@@ -117,7 +118,7 @@ export default function MidArea(props) {
         <Reorder.Item drag key={item.key} value={item}  >
           {item.type === "insertinto" && <ControlBlocks id={item.key} draggable class={`w-60 h-30 max-h-30  ${item.class}`} operation={item.operation} setFlow={props.setFlow}
             type={"replace"} flow={props.flow} board={board} setBoard={setBoard} />}
-          {item.type === "insert" && <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
+          {item.type === "insert" && <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow} action={item.action}
             type={"replace"} setBoard={setBoard}>{item.type}</Blockcopy>}
         </Reorder.Item>
       ))}

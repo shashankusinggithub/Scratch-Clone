@@ -53,13 +53,13 @@ export default function Sidebar() {
     id: "rotateAntiClock",
     class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
     operation: "Rotate Anti-Clockwise Deg   |",
-    action: {x: 0, y:0, rotate:-15}
+    action: {x: 0, y:0, rotate:-50}
   },
     {
       id: "rotateClockWise",
       class: "flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer",
       operation: "Rotate Clockwise Deg    |",
-      action: {x: 0, y:0, rotate:15}
+      action: {x: 0, y:0, rotate:50}
 
     },
   ]

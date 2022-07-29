@@ -10,6 +10,11 @@ export default function PreviewArea(props) {
   const [X, setX] = useState(0)
   const [Y, setY] = useState(0)
   const [R, setR] = useState(0)
+ 
+  let flag = false
+
+  let sprite = false
+
   const ref = useRef()
 
   function updatePosition() {
@@ -28,41 +33,67 @@ export default function PreviewArea(props) {
   }
 
 
+  function handleStartFlag() {
+    if (props.flow[0].onTap === "flag") {
+      flag = true
+      forloop()
+    }}
+
+    function handleStartSprite() { 
+    if (props.flow[0].onTap === "sprite") {
+      sprite = true
+      forloop()
+    }
+  }
+  
+
 
 
   const forloop = async () => {
-    let Xp = X
-    let Yp = Y
-    let Rp = R
-    let temp = { x: Xp, y: Yp, rotate: Rp }
-    let temp1
-    for (const item of props.flow) {
-      await new Promise(resolve => setTimeout(resolve))
-      console.log(item)
-      if (item.action) {
-        // console.log("started")
-        Yp = Yp + item.action.y
-        Rp = Rp + item.action.rotate
-        Xp = Xp + item.action.x
-        temp = { x: Xp, y: Yp, rotate: Rp }
-        // console.log(temp)
-        await animation.start(temp)
-        setX(Xp)
-        setY(Yp)
-        setR(Rp)
-      }
-      else if (item.array) {
-        for (let i = 1; i <= item.repeat; i++){
-        temp1 = await insideforloop(item.array, Xp, Yp, Rp)
-        Xp = temp1.x
-        Yp = temp1.y
-        Rp = temp1.rotate
-        setX(Xp)
-        setY(Yp)
-        setR(Rp)}
-      }
-    }
+    if (flag || sprite) {
+      let Xp = X
+      let Yp = Y
+      let Rp = R
+      let temp = { x: Xp, y: Yp, rotate: Rp }
+      let temp1
+      console.log("started", flag, sprite)
+      for (const item of props.flow) {
+        await new Promise(resolve => setTimeout(resolve))
+        console.log(item)
+        if (flag || sprite) {
+          if (item.action) {
+            // console.log("started")
+            Yp = Yp + item.action.y
+            Rp = Rp + item.action.rotate
+            Xp = Xp + item.action.x
+            temp = { x: Xp, y: Yp, rotate: Rp }
+            // console.log(temp)
+            await animation.start(temp)
+            setX(Xp)
+            setY(Yp)
+            setR(Rp)
+          }
+          else if (item.array) {
+            for (let i = 1; i <= item.repeat; i++) {
+              temp1 = await insideforloop(item.array, Xp, Yp, Rp)
+              Xp = temp1.x
+              Yp = temp1.y
+              Rp = temp1.rotate
+              setX(Xp)
+              setY(Yp)
+              setR(Rp)
+            }
+          }
+        }
+        else {
+          break
+        }
 
+      }
+      flag = false
+      sprite = false
+
+    }
   }
 
   const insideforloop = async (insidefor, Xp, Yp, Rp) => {
@@ -91,23 +122,7 @@ export default function PreviewArea(props) {
 
   const animation = useAnimation();
 
-  async function flowing() {
-    let Xp = X
-    let Yp = Y
-    let Rp = R
-    props.flow.forEach(async item => {
-      // setX((prv) => prv + item.action.x)
-      // setY((prv) => prv + item.action.y)
-      // setR((prv) => prv + item.action.rotate)
-      // const item = props.flow[i]
-      Yp = Y + item.action.y
-      Rp = R + item.action.rotate
-      Xp = X + item.action.x
-      const temp = { x: Xp, y: Yp, rotate: Rp, delay: 1 }
-      await forloop(temp)
-
-    })
-  }
+  
 
 
   // const sequence1 = async _ => {
@@ -176,6 +191,12 @@ export default function PreviewArea(props) {
       id='parent-id'
       className="flex-none h-full overflow-x-auto  overflow-y-auto p-2 w-full"
     >
+      <img
+        className="w-10 bg-pink-500"
+        src="https://icon-library.com/images/green-flag-icon/green-flag-icon-25.jpg"
+        onClick={handleStartFlag}
+
+      />
 
       <motion.img
         id='child-id'
@@ -190,6 +211,7 @@ export default function PreviewArea(props) {
         animate={animation}
         transition={{ duration: 0.5, delay: 0 }}
         onAnimationIteration={updatePosition}
+        onClick={handleStartSprite}
 
         src="https://image.pngaaa.com/370/3253370-middle.png"></motion.img>
 
