@@ -4,14 +4,16 @@ import { motion, useDragControls, useAnimation, animate } from "framer-motion"
 
 
 export default function PreviewArea(props) {
+  const controller = new AbortController()
   const controls = useDragControls()
   const [isActive, setIsActive] = React.useState(false);
   // const [location, setLocation] = useState({})
   const [X, setX] = useState(0)
   const [Y, setY] = useState(0)
   const [R, setR] = useState(0)
- 
+
   let flag = false
+  let cancel = false
 
   let sprite = false
 
@@ -35,22 +37,30 @@ export default function PreviewArea(props) {
 
   function handleStartFlag() {
     if (props.flow[0].onTap === "flag") {
+      cancel = false
       flag = true
       forloop()
-    }}
+    }
+  }
 
-    function handleStartSprite() { 
+  function handleStartSprite() {
     if (props.flow[0].onTap === "sprite") {
       sprite = true
       forloop()
     }
   }
-  
+  function handleStop() {
+    console.log("tryed to cancell")
+    flag = false
+    sprite = false
+    cancel = true
+  }
 
 
-
+  let promise = []
   const forloop = async () => {
-    if (flag || sprite) {
+
+    try {
       let Xp = X
       let Yp = Y
       let Rp = R
@@ -58,7 +68,10 @@ export default function PreviewArea(props) {
       let temp1
       console.log("started", flag, sprite)
       for (const item of props.flow) {
-        await new Promise(resolve => setTimeout(resolve))
+        if (cancel === true) {
+          throw Error("user stoped")
+        }
+        await new Promise(resolve => setTimeout(resolve), 500)
         console.log(item)
         if (flag || sprite) {
           if (item.action) {
@@ -68,7 +81,11 @@ export default function PreviewArea(props) {
             Xp = Xp + item.action.x
             temp = { x: Xp, y: Yp, rotate: Rp }
             // console.log(temp)
-            await animation.start(temp)
+            if (cancel) {
+              throw Error("user stoped")
+            }
+            temp1 = await animation.start(temp)
+            promise.push(temp1)
             setX(Xp)
             setY(Yp)
             setR(Rp)
@@ -76,6 +93,8 @@ export default function PreviewArea(props) {
           else if (item.array) {
             for (let i = 1; i <= item.repeat; i++) {
               temp1 = await insideforloop(item.array, Xp, Yp, Rp)
+              console.log(temp1)
+              
               Xp = temp1.x
               Yp = temp1.y
               Rp = temp1.rotate
@@ -83,6 +102,9 @@ export default function PreviewArea(props) {
               setY(Yp)
               setR(Rp)
             }
+          }
+          if (cancel) {
+            throw Error("user stoped")
           }
         }
         else {
@@ -94,12 +116,15 @@ export default function PreviewArea(props) {
       sprite = false
 
     }
+    catch (error) {
+      console.log(error)
+    }
   }
 
   const insideforloop = async (insidefor, Xp, Yp, Rp) => {
     let temp
     for (const item of insidefor) {
-      await new Promise(resolve => setTimeout(resolve))
+      // await new Promise(resolve => setTimeout(resolve, 500))
       if (item.action) {
         // console.log("started for")
         Yp = Yp + item.action.y
@@ -122,7 +147,7 @@ export default function PreviewArea(props) {
 
   const animation = useAnimation();
 
-  
+
 
 
   // const sequence1 = async _ => {
@@ -191,12 +216,19 @@ export default function PreviewArea(props) {
       id='parent-id'
       className="flex-none h-full overflow-x-auto  overflow-y-auto p-2 w-full"
     >
-      <img
-        className="w-10 bg-pink-500"
-        src="https://icon-library.com/images/green-flag-icon/green-flag-icon-25.jpg"
-        onClick={handleStartFlag}
+      <div className="flex flex-row space-x-4 ">
 
-      />
+        <img
+          className="w-10 bg-pink-500"
+          src="https://icon-library.com/images/green-flag-icon/green-flag-icon-25.jpg"
+          onClick={handleStartFlag}
+        />
+
+        <img className="h-10"
+          onClick={()=>animation.stop()}
+          src="https://www.clipartmax.com/png/full/218-2181389_stop-it-simple-multicolor-icon-stop-traffic-sign.png" />
+      </div>
+      <br></br>
 
       <motion.img
         id='child-id'
@@ -209,7 +241,8 @@ export default function PreviewArea(props) {
         onTap={forloop}
         onDragEnd={updatePosition}
         animate={animation}
-        transition={{ duration: 0.5, delay: 0 }}
+        
+        transition={{  duration:0.5, delay: 0.5 }}
         onAnimationIteration={updatePosition}
         onClick={handleStartSprite}
 

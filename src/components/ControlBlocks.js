@@ -130,12 +130,12 @@ function ControlBlock(props) {
         }
         }
       >{props.operation} {props.id}
-        <input onChange={handleChange}  type="text"  className='text-blue-600 w-10'></input>
+        <input onChange={handleChange} defaultValue={5} type="text"  className='text-blue-600 w-10'></input>
         <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} >
           {innerBlock.map((item) => (
             <Reorder.Item key={item.key} value={item} drag >
               <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
-                type={"replaceinto"} setInnerBlock={setInnerBlock} />
+                type={"replaceinto"} action={item.action}  setInnerBlock={setInnerBlock} />
             </Reorder.Item>
           ))}
         </Reorder.Group>
