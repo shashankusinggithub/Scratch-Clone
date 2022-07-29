@@ -56,10 +56,14 @@ function ControlBlock(props) {
 
     }
     count += 1
+
+
     setInnerBlock((prv) => {
       console.log(temp)
       return ([...prv, { ...temp, key: (props.id) * 1000 + count }])
     })
+
+
     // const index = props.flow.findIndex(object => {
     //   return object.id === props.id;
     // });
@@ -106,12 +110,12 @@ return (
     }
     }
   >{props.operation} {props.id}
-
+    <input type="text" className='text-blue-600 w-10'></input>
     <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} >
       {innerBlock.map((item) => (
         <Reorder.Item key={item.key} value={item} drag >
           <Blockcopy id={item.key} class={item.class} operation={item.operation} setFlow={props.setFlow}
-            type={"replaceinto"} />
+            type={"replaceinto"} setInnerBlock={setInnerBlock}/>
         </Reorder.Item>
       ))}
     </Reorder.Group>

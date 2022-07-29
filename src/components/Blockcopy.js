@@ -10,44 +10,100 @@ import Context from "./Context";
 function Blockcopy(props) {
   const [keyVal, setKeyVal] = useContext(Context);
 
+  function handleChange(event) {
+    const value = Number(event.target.value.replace(/\D/g, ''));
 
 
 
+    if (props.id < 1000) {
+      props.setBoard((prv) => {
+        const index = prv.findIndex(object => {
+          return object.key === props.id;
+        });
 
-  // const midArea = document.getElementById('block')
-  // midArea.addEventListener("keydown", (e)=>{
-  //   if (e.key === "Delete"){
-  //     console.log("delete pressed")
-  //   }
-  // })
+        console.log(prv[index])
 
-  // const [{isDragging}, drag] = useDrag(()=>({
-  //     type: `${props.type}`,
-  //     item: {props: props},
-  //     collect: (monitor) =>({
-  //       isDragging: !!monitor.isDragging(),
-  //     })
-  //   }))
-  // let dragabled
 
-  // if (props.type){
-  //     dragabled = drag }else{
-  //    dragabled = {}
-  //   }
+        {
+          if (prv[index].id == "move fw") {
+            prv[index].action.x = value
+          }
+          else if (prv[index].id == "move bw") {
+            prv[index].action.x = -1 * value
+          }
+          else if (prv[index].id == "move up") {
+            prv[index].action.y = -1 * value
+          }
+          else if (prv[index].id == "move dwn") {
+            prv[index].action.y = value
+          }
+          else if (prv[index].id == "rotateAntiClock") {
+            prv[index].action.rotate = -1 * value
+          }
+          else if (prv[index].id == "rotateClockWise") {
+            prv[index].action.rotate = value
+          }
+
+          console.log(prv[index].action)
+          return ([...prv])
+        }
+      })
+    }
+
+    else {
+      props.setInnerBlock((prv) => {
+        const index = prv.findIndex(object => {
+          return object.key === props.id;
+        });
+
+        console.log(prv[index])
+
+
+        {
+          if (prv[index].id == "move fw") {
+            prv[index].action.x = value
+          }
+          else if (prv[index].id == "move bw") {
+            prv[index].action.x = -1 * value
+          }
+          else if (prv[index].id == "move up") {
+            prv[index].action.y = -1 * value
+          }
+          else if (prv[index].id == "move dwn") {
+            prv[index].action.y = value
+          }
+          else if (prv[index].id == "rotateAntiClock") {
+            prv[index].action.rotate = -1 * value
+          }
+          else if (prv[index].id == "rotateClockWise") {
+            prv[index].action.rotate = value
+          }
+
+          console.log(prv[index].action)
+          return ([...prv])
+        }
+      })
+    }
+  }
+
+
 
   return (
 
     <motion.div id="block"
 
       //  onFocus={()=> console.log("captured", props.id)}
-      className={props.class} 
+      className={props.class}
       onClick={(event) => {
         setKeyVal(props.id)
         console.log(keyVal)
         event.stopPropagation()
       }}
 
-      type={"replace"}>{props.operation}</motion.div>
+
+      type={"replace"}>{props.operation}
+      <input onChange={handleChange} type="text" className='text-blue-600 w-10'></input>
+    </motion.div>
 
 
   )
