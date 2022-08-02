@@ -14,11 +14,15 @@ import Description from "./components/Description";
 export default function App() {
   const [keyVal, setKeyVal] = useState(-1)
   const [flow, setFlow] = useState([])
+<<<<<<< HEAD
   //store
+=======
+>>>>>>> master
 
   return (
     <DndProvider backend={HTML5Backend}>
       <Context.Provider value={[keyVal, setKeyVal]}>
+<<<<<<< HEAD
         <div className="bg-blue-100 pt-6 font-sans">
           <div className="h-screen overflow-hidden flex flex-row  antialiased ">
             <div className="flex h-screen w-3/5 overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2">
@@ -28,6 +32,16 @@ export default function App() {
               <Description/>
             </div>
             <div className="w-2/5 h-screen overflow-hidden flex flex-row bg-white border-t border-l border-gray-200 rounded-tl-xl ml-2">
+=======
+        <div className="bg-blue-100 pt-6 font-sans" >
+          <div className="h-screen overflow-hidden flex flex-row  antialiased ">
+            <div className="flex h-screen w-3/5 overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2">
+              <Sidebar />
+              <MidArea flow={flow} setFlow={setFlow} />
+              <Description />
+            </div>
+            <div className="w-2/5 overflow-x-auto flex flex-row bg-white border-t border-l border-gray-200 rounded-tl-xl ml-2">
+>>>>>>> master
               <PreviewArea flow={flow} />
             </div>
           </div>

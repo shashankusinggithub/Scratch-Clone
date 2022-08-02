@@ -18,6 +18,14 @@ function Description() {
         <li>Drap n Drop the Motion Blocks directly inside the <b>For Loop</b></li>
         <li>Click on a Block and press <b>"Delete" key</b> to delete the block</li>
         <li>Drag the blocks to <b>Re-Arrange the Flow</b></li>
+<<<<<<< HEAD
+=======
+        <br></br>
+        
+        <li>Click <b>green Flag</b> to Start the <b>animation</b></li>
+        <li>Click <b>Flag</b> to start the <b>animation</b></li>
+        <li>Enter <b>IMG URL</b> to add your custom <b>Sprite</b></li>
+>>>>>>> master
       </ul>
     </div>
   )
